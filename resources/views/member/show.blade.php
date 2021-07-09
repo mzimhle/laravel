@@ -21,9 +21,21 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Details:</strong>
-                {{ $member->detail }}
+                <strong>Surname:</strong>
+                {{ $member->surname }}
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Cellphone:</strong>
+                {{ $member->cellphone }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Email:</strong>
+                {{ $member->email }}
+            </div>
+        </div>		
     </div>
 @endsection

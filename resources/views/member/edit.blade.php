@@ -36,10 +36,22 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Detail:</strong>
-                    <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail">{{ $member->detail }}</textarea>
+                    <strong>Surname:</strong>
+                    <input type="text" name="surname" value="{{ $member->surname }}" class="form-control" placeholder="Surname">
                 </div>
             </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Cellphone:</strong>
+                    <input type="text" name="cellphone" value="{{ $member->cellphone }}" class="form-control" placeholder="Cellphone">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Email:</strong>
+                    <input type="text" name="email" value="{{ $member->email }}" class="form-control" placeholder="Email">
+                </div>
+            </div>			
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
               <button type="submit" class="btn btn-primary">Submit</button>
             </div>

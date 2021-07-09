@@ -11,13 +11,11 @@
             </div>
         </div>
     </div>
-   
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
     @endif
-   
     <table class="table table-bordered">
         <tr>
             <th>No</th>
@@ -27,7 +25,7 @@
         </tr>
         @foreach ($member as $item)
         <tr>
-            <td>{{ ++$i }}</td>
+            <td>{{ $item->id }}</td>
             <td>{{ $item->name }}</td>
             <td>{{ $item->surname }}</td>
             <td>

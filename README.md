@@ -41,8 +41,9 @@ After the above, lets start with the model first
 ```sh
 > php artisan make:model Member
 ```
-Remember after adding the model to update it and add the fillable:
+Remember after adding the model to update it and add the fillable and the table variables, the table one is to define the table linked to this model otherwise it will use the plural version of the model, in this case 'members', and fillable is to tell it which items are updatable in the form:
 ```sh
+	protected $table = 'member';
     protected $fillable = [
         'name', 'surname', 'cellphone', 'email'
     ];	
@@ -66,4 +67,47 @@ Now lets create the view files, create the folder /resources/views/member, with 
 - edit.blade.php
 - show.blade.php
 
-Populate the files accordingly, check the files in this repository, 
+Populate the files accordingly, check the files in this repository. The website is running perfectly.
+The process of this is as follows, this is sequencial as displayed on here:
+
+###### /routes/web.php : 
+
+Routes for the member are created here by that one line in the file we added based on controller methods, this is the below result of generated links
+- index (/member)
+- edit (/member/3/edit)
+- show (/member/3)
+- create (/member/create)
+- delete which is a form submission with variable _method of the value 'DELETE' (/member/3)
+
+###### /app/Http/Controllers/MemberController.php :
+
+Once the view has been created, it will direct us to the controller's corresponding method, see above routes (links). 
+To call the views here we use 'member.index', this means in he views folder, go to member folder and look for the file 'index.blade.php'.
+Based on how laravel works, database CRUD occurs here on submission. Check the code.
+
+###### /resources/views/member/ :
+
+This is where ALL views are stored, we are using blade on this one instead of twig as in symfony.
+These have their own variables
+
+## CLEAN UP
+
+The issues we came across are the following, which I will need to fix before moving forward:
+
+1. Home page setup
+
+The home page is defined in the routes/web.php file with the code:
+```sh
+Route::get('/', function () {
+    return view('welcome');
+});
+The 'welcome' indicates to the file /resources/views/welcome.blade.php, you can change this here.
+```
+1. Confirm popup before deleting
+2. make sure the cellphone number and email are unique for each member
+3. Non model related pages like the landing page how they work.
+4. Extra links to the member controller
+5. Customize links
+
+
+
