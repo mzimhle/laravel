@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Rules\RSAnumber;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -41,10 +42,10 @@ class MemberController extends Controller
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
-            'cellphone' => 'required',
-            'email' => 'required',
+			'cellphone' => ['required', 'unique:member', new RSAnumber],
+			'email' => 'nullable|email|unique:member'
         ]);
-    
+
         Member::create($request->all());
      
         return redirect()->route('member.index')
@@ -88,8 +89,8 @@ class MemberController extends Controller
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
-            'cellphone' => 'required',
-            'email' => 'required',
+			'cellphone' => ['required', 'unique:member', new RSAnumber],
+			'email' => 'nullable|email|unique:member'
         ]);
 		$member = Member::find($id);	
         $member->update($request->all());

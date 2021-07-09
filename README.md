@@ -77,7 +77,7 @@ The 'welcome' indicates to the file /resources/views/welcome.blade.php, you can 
 Populate the files accordingly, check the files in this repository. The website is running perfectly.
 The process of this is as follows, this is sequencial as displayed on here:
 
-###### /routes/web.php : 
+##### /routes/web.php : 
 
 Routes for the member are created here by that one line in the file we added based on controller methods, this is the below result of generated links
 - index (/member)
@@ -86,13 +86,13 @@ Routes for the member are created here by that one line in the file we added bas
 - create (/member/create)
 - delete (/member/3/destroy) used ajax for this one.
 
-###### /app/Http/Controllers/MemberController.php :
+##### /app/Http/Controllers/MemberController.php :
 
 Once the view has been created, it will direct us to the controller's corresponding method, see above routes (links). 
 To call the views here we use 'member.index', this means in he views folder, go to member folder and look for the file 'index.blade.php'.
 Based on how laravel works, database CRUD occurs here on submission. Check the code.
 
-###### /resources/views/member/ :
+##### /resources/views/member/ :
 
 This is where ALL views are stored, we are using blade on this one instead of twig as in symfony.
 These have their own variables
@@ -102,9 +102,32 @@ These have their own variables
 We are now going to validate the cellphone number and the email. We need to make sure that:
 - Cellphone is unique, required, only has 10 digits and starts with 0.
 - Email is unique, not required, must be a valid email address.
+- Create custom validation
 
+##### Validate cellphone and email
 
+In the controller, where we add or update the member, we should add the following code to validate, the 'nullable' is for email to be null.:
 
+```sh
+        $request->validate([
+			...
+			'cellphone' => 'required|regex:/^0([0-9]*)$/|min:10|unique:member',
+			'email' => 'nullable|email|unique:member',
+			...
+        ]);
+```
 
+Now let us create a custom validation method.:
 
-
+```sh
+> php artisan make:rule RSAnumber
+```
+The above will create the file /app/Rules/RSAnumber.php, under the method 'passes' you will add your validation.
+After adding the rule, implement it in the controller method validating with the following:
+```sh
+        $request->validate([
+			...
+			'cellphone' => ['required', 'unique:member', new RSAnumber],
+			...
+        ]);	
+```
