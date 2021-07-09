@@ -57,8 +57,9 @@ class MemberController extends Controller
      * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function show(Member $member)
+    public function show(int $id)
     {
+		$member = Member::find($id);
         return view('member.show',compact('member'));
     }
 
@@ -68,8 +69,9 @@ class MemberController extends Controller
      * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function edit(Member $member)
+    public function edit(int $id)
     {
+		$member = Member::find($id);		
         return view('member.edit',compact('member'));
     }
 
@@ -80,7 +82,8 @@ class MemberController extends Controller
      * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Member $member)
+	 
+    public function update(Request $request, int $id)
     {
         $request->validate([
             'name' => 'required',
@@ -88,7 +91,7 @@ class MemberController extends Controller
             'cellphone' => 'required',
             'email' => 'required',
         ]);
-    
+		$member = Member::find($id);	
         $member->update($request->all());
     
         return redirect()->route('member.index')
@@ -101,11 +104,14 @@ class MemberController extends Controller
      * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Member $member)
+    public function destroy(int $id)
     {
-        $member->delete();
-    
-        return redirect()->route('member.index')
-                        ->with('success','Member deleted successfully');
+		$member = Member::find($id);
+		
+        if($member->delete() !== null) {
+			return response()->json(['success'=>'Member deleted successfully']);
+		} else {
+			return response()->json(['warning'=>'Member not deleted']);
+		}
     }
 }

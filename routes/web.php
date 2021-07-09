@@ -21,4 +21,13 @@ Route::get('/', function () {
  * Member route.
  *
  */
-Route::resource('member', MemberController::class);
+// Route::resource('member', MemberController::class);
+// For pages
+Route::get('/member', [MemberController::class, 'index'])->name('member.index');
+Route::get('/member/{id}/show', [MemberController::class, 'show'])->name('member.show');
+Route::get('/member/create', [MemberController::class, 'create'])->name('member.create');
+Route::get('/member/{id}/edit', [MemberController::class, 'edit'])->name('member.edit');
+Route::post('/member/{id}/update', [MemberController::class, 'update'])->name('member.update');
+// For submitting
+Route::post('/member', [MemberController::class, 'store'])->name('member.store');
+Route::post('/member/{id}/destroy', [MemberController::class, 'destroy'])->name('member.destroy');
