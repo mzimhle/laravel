@@ -131,3 +131,26 @@ After adding the rule, implement it in the controller method validating with the
 			...
         ]);	
 ```
+
+## DATATABLES
+
+We are going to use Yajra datatables, to install them, we run the following:
+
+```sh
+> composer require yajra/laravel-datatables-oracle
+```
+Now lets cofigure it with laravel in the file /config/app.php
+```sh
+.....
+'providers' => [
+	....
+	....
+	Yajra\DataTables\DataTablesServiceProvider::class,
+]
+'aliases' => [
+	....
+	....
+	'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+]
+.....
+```

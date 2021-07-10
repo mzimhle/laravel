@@ -7,7 +7,7 @@
                 <h2>Members</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('member.create') }}"> Create New Member</a>
+                <a class="btn btn-success" href="/member/create"> Create New Member</a>
             </div>
         </div>
     </div>
@@ -16,37 +16,57 @@
             <p>{{ $message }}</p>
         </div>
     @endif
-    <table class="table table-bordered">
+    <table class="table table-bordered yajra-datatable">
         <tr>
             <th>No</th>
             <th>Name</th>
             <th>Surname</th>
             <th>Cellphone</th>
             <th>Email</th>			
-            <th width="280px">Action</th>
+            <th></th>
+            <th></th>
+            <th></th>			
         </tr>
-        @foreach ($member as $item)
-        <tr>
-            <td>{{ $item->id }}</td>
-            <td>{{ $item->name }}</td>
-            <td>{{ $item->surname }}</td>
-            <td>{{ $item->cellphone }}</td>
-            <td>{{ $item->email }}</td>			
-            <td>
-                    <a class="btn btn-info" href="{{ route('member.show',$item->id) }}">Show</a>
-                    <a class="btn btn-primary" href="{{ route('member.edit',$item->id) }}">Edit</a>
-                    <button onclick="deleteMemberModal('{{ $item->id }}'); return false;" class="btn btn-danger">Delete</button>
-            </td>
-        </tr>
-        @endforeach
+        <tbody></tbody>
     </table>
-    {!! $member->links() !!}
-	<script>
-function deleteMemberModal(id) {
-    $('#memberid').val(id);
-    $('#deleteMemberModal').modal('show');
-    return false;
-}
+	<script type="text/javascript">
+	$(function () {
+		var table = $('.yajra-datatable').DataTable({
+			processing: true,
+			serverSide: true,
+			ajax: "/member/paginate",
+			columns: [
+				{data: 'DT_RowIndex', name: 'DT_RowIndex'},
+				{data: 'name', name: 'name'},
+				{data: 'surname', name: 'surname'},
+				{data: 'cellphone', name: 'cellphone'},
+				{data: 'email', name: 'email'},
+				{
+					data: 'show', 
+					name: 'show', 
+					orderable: false, 
+					searchable: false
+				},
+				{
+					data: 'edit', 
+					name: 'edit', 
+					orderable: false, 
+					searchable: false
+				},
+				{
+					data: 'destroy', 
+					name: 'destroy', 
+					orderable: false, 
+					searchable: false
+				},				
+			]
+		});
+	});
+	function deleteMemberModal(id) {
+		$('#memberid').val(id);
+		$('#deleteMemberModal').modal('show');
+		return false;
+	}
 	
 	function deleteMember() {
 		event.preventDefault();

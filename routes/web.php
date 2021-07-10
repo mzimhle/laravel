@@ -24,6 +24,7 @@ Route::get('/', function () {
 // Route::resource('member', MemberController::class);
 // For pages
 Route::get('/member', [MemberController::class, 'index'])->name('member.index');
+Route::get('/member/paginate', [MemberController::class, 'paginate'])->name('member.paginate');
 Route::get('/member/{id}/show', [MemberController::class, 'show'])->name('member.show');
 Route::get('/member/create', [MemberController::class, 'create'])->name('member.create');
 Route::get('/member/{id}/edit', [MemberController::class, 'edit'])->name('member.edit');

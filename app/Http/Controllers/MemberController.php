@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Member;
 use App\Rules\RSAnumber;
 use Illuminate\Http\Request;
+use DataTables;
 
 class MemberController extends Controller
 {
@@ -15,12 +16,30 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $member = Member::latest()->paginate(5);
-    
-        return view('member.index',compact('member'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('member.index');
     }
-
+    /**
+     * Method to get the data for members.
+     */	
+    public function paginate(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Member::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('show', function($row){
+                    return '<a class="btn btn-info" href="'.route('member.show', ['id' => $row->id]).'">Show</a>';
+                })
+                ->addColumn('edit', function($row){
+                    return '<a class="btn btn-primary" href="'.route('member.edit', ['id' => $row->id]).'">Edit</a>';
+                })
+                ->addColumn('destroy', function($row){
+                    return '<button onclick="deleteMemberModal(\''.$row->id.'\'); return false;" class="btn btn-danger">Delete</button>';
+                })				
+                ->rawColumns(['show', 'edit', 'destroy'])
+                ->make(true);
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *
