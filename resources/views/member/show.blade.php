@@ -1,4 +1,4 @@
-@extends('member.layout')
+@extends('include.layout')
   
 @section('content')
     <div class="row">

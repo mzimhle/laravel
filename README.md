@@ -154,3 +154,40 @@ Now lets cofigure it with laravel in the file /config/app.php
 ]
 .....
 ```
+## INCLUDES
+
+This is to separate the view into included file like style sheets, javascript and page sections like menus.
+All the css and javascript files must be in the /public/include/css.blade.php and /public/include/javascript.blade.php folders.
+
+On your layout page, for your content add the following:
+```sh
+<div class="content">
+@yield('content')
+</div>
+```
+For includes, you add the following in the same layout file for includes, their paths is 
+```sh
+<head>
+@include('include.css')
+</head>
+...
+...
+<head>
+@include('include.javascript')
+</head>
+```
+So the contents of javascript.blade.php for example will be:
+```sh
+<script src="{{ asset('/javascript/jquery.js') }}"></script>  
+@yield('javascript')
+``` 
+Then when you use it in your pages, it will be as follows:
+```sh
+@section('javascript')
+...
+<script type="text/javascript">
+...
+</script>
+...
+@stop
+```
