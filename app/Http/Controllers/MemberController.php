@@ -108,8 +108,8 @@ class MemberController extends Controller
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
-			'cellphone' => ['required', 'unique:member', new RSAnumber],
-			'email' => 'nullable|email|unique:member'
+			'cellphone' => ['required', 'unique:member,cellphone,'. $id, new RSAnumber],
+			'email' => 'nullable|email|unique:member,email,'. $id
         ]);
 		$member = Member::find($id);	
         $member->update($request->all());
