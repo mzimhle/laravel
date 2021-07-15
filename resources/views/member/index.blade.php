@@ -19,16 +19,6 @@
         </div>
     @endif
     <table class="table table-bordered yajra-datatable">
-        <tr>
-            <th>No</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Cellphone</th>
-            <th>Email</th>			
-            <th></th>
-            <th></th>
-            <th></th>			
-        </tr>
         <tbody></tbody>
     </table>
 @endsection

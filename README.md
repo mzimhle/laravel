@@ -191,3 +191,42 @@ Then when you use it in your pages, it will be as follows:
 ...
 @stop
 ```
+## LOGIN AUTHENTICATION
+
+We want to be able to register as well as login with the registered users, while making sure they cannot access other pages without loggin in.
+We will be using the database for our users.
+
+Lets create the controller:
+
+```sh
+> php artisan make:controller AuthController
+> php artisan make:model Admin 
+```
+
+We will create a controller with all the pages for login, registration, reset password and logout.
+The second line will create a model for the admin table, where we will use it for registration as well as login.
+After the above, we need to update the config/auth.php file, where we will be updating this line on 71, for the providers:
+```sh
+...
+'model' => App\Models\Admin::class,
+...
+```
+The above tells the authentication class what model to use for authentication.
+So now, we would have created the model, controller as well as the templates for login, registration, etc. we will need to make sure only registered users go to certain links like the dashboard and other pages are inaccessible unless an admin is logged in.
+So on the web.php file for routers:
+
+```sh
+...
+
+Route::group(['middleware' => 'auth'], function(){
+	// Landing page after login.
+	Route::get('/', [AuthController::class, 'index'])->name('auth.index');
+	...
+	// Grouping the links that need authentication.
+});
+...
+
+```
+## API CONFIGURATION
+
+## 
