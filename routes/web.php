@@ -33,6 +33,8 @@ Route::group(['middleware' => 'auth'], function(){
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::get('/forgot', [AuthController::class, 'forgot'])->name('auth.forgot');
 
 Route::post('/login', [AuthController::class, 'submitLogin'])->name('auth.submitlogin');
 Route::post('/register', [AuthController::class, 'submitRegister'])->name('auth.submitregister');
+Route::post('/forgot', [AuthController::class, 'submitForgot'])->name('auth.submitforgot');

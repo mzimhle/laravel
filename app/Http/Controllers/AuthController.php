@@ -35,6 +35,14 @@ class AuthController extends Controller
         return view('register');
     }
     /**
+     * Landing page to display registration
+     *
+     */
+    public function forgot()
+    {
+        return view('forgot');
+    }	
+    /**
      * The page to submit to via the login form.
      *
      */
@@ -59,7 +67,7 @@ class AuthController extends Controller
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
-    }	
+    }
     /**
      * Submission page for registration
      *
@@ -82,6 +90,24 @@ class AuthController extends Controller
 
         return redirect("/")->withSuccess('You have signed-in');
     }
+    /**
+     * Submission page for registration
+     *
+     */	
+    public function submitForgot(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+		$admin = Admin::where('email', $request->input('email'))->first();
+		//Check if the user exists
+		if (!$admin) {
+			return redirect()->back()->withErrors(['email' => trans('Admin does not exist')]);
+		}
+		// P.S. YOU CANNOT UNHASH A PASSWORD
+		return redirect()->back()->with('message', 'Your password is '.$admin->password);
+    }	
     /**
      * Logout page
      *

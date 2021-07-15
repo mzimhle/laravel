@@ -227,6 +227,9 @@ Route::group(['middleware' => 'auth'], function(){
 ...
 
 ```
+Lastly, if you are going to have the 'Remember me' checkbox, please make sure you have added the column 'remember_token' with varchar(100), this is where the current token for log in will be saved.
+P.S. You cannot unhash a hashed password by the way.
+
 ## API CONFIGURATION
 
 ## 
