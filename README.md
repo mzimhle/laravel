@@ -249,15 +249,16 @@ Route::group(['domain' => 'laravel.loc'], function()
 ...
 ```
 
-## SMS Integration API
+## SMS INTEGRATION API
 
 We want to be able to send out an SMS notification with password after registration is completed.
 Create a new directory:
 
 /app/library/classes/SMS.php
 
-the above will be the class to send out messages.
+The above will be the class to send out messages, you can simply call this on successful registration.
 
+## EMAIL 
 ## API CONFIGURATION
 
 ## 

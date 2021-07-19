@@ -105,7 +105,7 @@ class AuthController extends Controller
 		// check if we got a user created.
 		if($admin) {
 			// Send out an SMS to the admin.
-			$this->sms->smsAdmin($admin);
+			$this->sms->admin($admin);
 		}
 		
         return redirect("/")->withSuccess('You have signed-in');

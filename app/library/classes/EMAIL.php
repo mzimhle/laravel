@@ -4,7 +4,7 @@ namespace App\Library\Classes;
 use App\Models\Admin;
 use App\Models\Comm;
 
-class SMS {
+class EMAIL {
 	// Properties
 	private $comm;
     /**
@@ -14,7 +14,7 @@ class SMS {
     public function __construct()
     {
 		$this->comm = new Comm;
-	}	
+	}
 	/**
 	 * Method to send out an SMS 
  	 * @param Admin $admin
