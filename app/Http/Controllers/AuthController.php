@@ -7,9 +7,20 @@ use Hash;
 use Session;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
+use App\Library\Classes\SMS;
+use App\Rules\RSAnumber;
 
 class AuthController extends Controller
 { 
+	private $sms;
+    /**
+     * Constructor for this class
+     *
+     */	
+    public function __construct(SMS $sms)
+    {
+		$this->sms = $sms;
+	}
     /**
      * The page to display before loggin in.
      *
@@ -77,17 +88,26 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:admin',
+			'cellphone' => ['required', 'unique:admin', new RSAnumber],
             'password' => 'required',
 			'password_retype' => 'required|same:password',
         ]);
 
         $data = $request->all();
-		Admin::create([
+		// Insert data.
+		$admin = Admin::create([
 			'name' => $data['name'],
 			'email' => $data['email'],
-			'password' => Hash::make($data['password'])
-		]);
-
+			'cellphone' => $data['cellphone'],
+			'password_clear' => $data['password'],
+			'password' => Hash::make($data['password'])		
+		]);		
+		// check if we got a user created.
+		if($admin) {
+			// Send out an SMS to the admin.
+			$this->sms->smsAdmin($admin);
+		}
+		
         return redirect("/")->withSuccess('You have signed-in');
     }
     /**
@@ -107,7 +127,7 @@ class AuthController extends Controller
 		}
 		// P.S. YOU CANNOT UNHASH A PASSWORD
 		return redirect()->back()->with('message', 'Your password is '.$admin->password);
-    }	
+    }
     /**
      * Logout page
      *

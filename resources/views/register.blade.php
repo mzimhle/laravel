@@ -25,7 +25,13 @@
                 <strong>Email:</strong>
                 <input type="text" name="email" class="form-control" placeholder="Email">
             </div>
-        </div>	
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Cellphone:</strong>
+                <input type="text" name="cellphone" class="form-control" placeholder="Cellphone">
+            </div>
+        </div>			
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Password:</strong>

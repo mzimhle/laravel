@@ -230,6 +230,34 @@ Route::group(['middleware' => 'auth'], function(){
 Lastly, if you are going to have the 'Remember me' checkbox, please make sure you have added the column 'remember_token' with varchar(100), this is where the current token for log in will be saved.
 P.S. You cannot unhash a hashed password by the way.
 
+## DOMAIN NAME CHANGE
+
+This is to change the name of the domain from http://127.0.0.1:8000 to http://laravel.loc:8000 on the testing website.
+On the /.env file, add the following: 
+
+```sh
+APP_URL=http://laravel.loc
+```
+Then on the config/web.php file, for all the links that are under this url, group them together.
+```sh
+...
+Route::group(['domain' => 'laravel.loc'], function()
+{
+	...
+	...
+});
+...
+```
+
+## SMS Integration API
+
+We want to be able to send out an SMS notification with password after registration is completed.
+Create a new directory:
+
+/app/library/classes/SMS.php
+
+the above will be the class to send out messages.
+
 ## API CONFIGURATION
 
 ## 
