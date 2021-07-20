@@ -258,7 +258,14 @@ Create a new directory:
 
 The above will be the class to send out messages, you can simply call this on successful registration.
 
-## EMAIL 
+## EMAIL
+
+Create a file called :
+
+/app/library/classes/EMAIL.php
+
+This will be where all email sending will be done.
+
 ## API CONFIGURATION
 
 ## 

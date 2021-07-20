@@ -30,14 +30,13 @@ $(function () {
 		serverSide: true,
 		ajax: "/member/paginate",
 		columns: [
-			{data: 'DT_RowIndex', name: 'DT_RowIndex', title: 'ID'},
 			{data: 'name', name: 'name', title: 'Name'},
 			{data: 'surname', name: 'surname', title: 'Surame'},
 			{data: 'cellphone', name: 'cellphone', title: 'Cellphone'},
 			{data: 'email', name: 'email', title: 'Email'},
 			{
-				data: 'show', 
-				name: 'show', 
+				data: 'address', 
+				name: 'address', 
 				orderable: false, 
 				searchable: false
 			},

@@ -27,8 +27,8 @@ class MemberController extends Controller
             $data = Member::latest()->get();
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('show', function($row){
-                    return '<a class="btn btn-info" href="'.route('member.show', ['id' => $row->id]).'">Show</a>';
+                ->addColumn('address', function($row){
+                    return '<a class="btn btn-info" href="'.route('address', ['id' => $row->id]).'">Address</a>';
                 })
                 ->addColumn('edit', function($row){
                     return '<a class="btn btn-primary" href="'.route('member.edit', ['id' => $row->id]).'">Edit</a>';
@@ -36,7 +36,7 @@ class MemberController extends Controller
                 ->addColumn('destroy', function($row){
                     return '<button onclick="deleteMemberModal(\''.$row->id.'\'); return false;" class="btn btn-danger">Delete</button>';
                 })				
-                ->rawColumns(['show', 'edit', 'destroy'])
+                ->rawColumns(['address', 'edit', 'destroy'])
                 ->make(true);
         }
     }
@@ -66,7 +66,7 @@ class MemberController extends Controller
         ]);
 
         Member::create($request->all());
-     
+
         return redirect()->route('member.index')
                         ->with('success','Member created successfully.');
     }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,6 @@ use App\Http\Controllers\AuthController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 
 Route::group(['domain' => 'laravel.loc'], function()
 {
@@ -32,6 +32,10 @@ Route::group(['domain' => 'laravel.loc'], function()
 		Route::post('/member/{id}/update', [MemberController::class, 'update'])->name('member.update');
 		Route::post('/member', [MemberController::class, 'store'])->name('member.store');
 		Route::post('/member/{id}/destroy', [MemberController::class, 'destroy'])->name('member.destroy');
+		// Address links
+		Route::get('/member/{id}/address', [AddressController::class, 'address'])->name('address');
+		Route::get('/member/{id}/address/paginate', [AddressController::class, 'paginate'])->name('address.paginate');
+		Route::post('/member/{id}/address/store', [AddressController::class, 'store'])->name('address.store');
 	});
 	// Links that do not need authentication.
 	Route::get('/login', [AuthController::class, 'login'])->name('login');

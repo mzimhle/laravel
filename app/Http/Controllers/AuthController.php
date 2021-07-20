@@ -126,7 +126,7 @@ class AuthController extends Controller
 			return redirect()->back()->withErrors(['email' => trans('Admin does not exist')]);
 		}
 		// P.S. YOU CANNOT UNHASH A PASSWORD
-		return redirect()->back()->with('message', 'Your password is '.$admin->password);
+		return redirect()->back()->with('message', 'Your password is '.$admin->password_clear);
     }
     /**
      * Logout page
