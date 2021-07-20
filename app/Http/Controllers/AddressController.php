@@ -17,6 +17,7 @@ class AddressController extends Controller
     public function address(int $id)
     {
 		$member = Member::find($id);
+
         return view('member.address',compact('member'));		
     }
     /**
@@ -26,15 +27,15 @@ class AddressController extends Controller
     {
         if ($request->ajax()) {
 
-			$data = Address::where('member_id', $id)->get();
+			$member = Member::find($id);
 
-            return Datatables::of($data)
+            return Datatables::of($member->addresses)
                 ->addColumn('address', function($row) {
                     return $row->address_1.($row->address_2 !== null ? ', '.$row->address_2 : '').', '.$row->area_code;
                 })
                 ->addColumn('destroy', function($row){
                     return '<button onclick="deleteMemberModal(\''.$row->id.'\'); return false;" class="btn btn-danger">Delete</button>';
-                })				
+                })
                 ->rawColumns(['address', 'destroy'])
                 ->make(true);
         }
